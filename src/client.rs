@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-
+use crate::status::{self, HttpResponse};
 
 #[derive(Debug)]
 pub struct HttpClient{
@@ -14,7 +14,7 @@ impl HttpClient {
    pub fn new(url:&str)->Self{
         let result = url::Url::parse(url);
 
-       let parsed_url=  match result{
+       let parsed_url=  match result{ 
             Ok(val)=>val,
             Err(e)=>{
                 println!("Invalid Url Formar");
@@ -40,7 +40,12 @@ impl HttpClient {
             stream.flush()?;
             let mut response = String::new();
             let _ = stream.read_to_string(&mut response)?;
-            println!("Response: {}",response);
+        
+            if let Some(http_response) = HttpResponse::from_raw(response){
+                http_response.print_Summary();
+            }else{
+                print!("Error occured while parsing the response");
+            }
 
             Ok(())
 
@@ -48,6 +53,5 @@ impl HttpClient {
         
          
 }
-
 
 
