@@ -18,6 +18,8 @@
 
 Make sure you have Rust and Cargo installed. Then clone the repo and build the project:
 ![nt-client demo](https://github.com/kush-bot/nt-client/blob/master/images/demo.png)
+![nt-client demo](https://github.com/kush-bot/nt-client/blob/master/images/demo1.png)
+![nt-client demo](https://github.com/kush-bot/nt-client/blob/master/images/demo2.png)
 
 ```bash
 git clone https://github.com/yourusername/nt-client.git
@@ -27,7 +29,6 @@ cargo build --release
 
 cargo run -- --host example.com --port 80 --path /posts/1 --method GET## Demo
 
-![nt-client demo](images/demo.png)
 
 cargo run -- --host jsonplaceholder.typicode.com --port 80 --path /posts --method POST --body '{"title":"foo","body":"bar","userId":1}'
 
