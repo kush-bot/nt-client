@@ -26,7 +26,7 @@ cargo build --release
 
 cargo run -- --host example.com --port 80 --path /posts/1 --method GET## Demo
 
-![nt-client demo](images/Screenshot From 2025-06-01 13-25-17.png)
+![nt-client demo](images/demo.png)
 
 cargo run -- --host jsonplaceholder.typicode.com --port 80 --path /posts --method POST --body '{"title":"foo","body":"bar","userId":1}'
 
