@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use crate::status::{self, HttpResponse};
+use crate::{status::{self, HttpResponse}, Errors::HttpResponseErrors};
 
 #[derive(Debug)]
 pub struct HttpClient{
@@ -13,7 +13,7 @@ pub struct HttpClient{
 impl HttpClient {
    pub fn new(url:&str)->Self{
         let result = url::Url::parse(url);
-
+    
        let parsed_url=  match result{ 
             Ok(val)=>val,
             Err(e)=>{
@@ -49,6 +49,38 @@ impl HttpClient {
 
             Ok(())
 
+    }
+    
+    pub fn post(&self,path:&str,body:&str,len:usize)->std::io::Result<()>{
+        let addr = format!("{}:{}",self.host, self.port);
+        let mut stream = std::net::TcpStream::connect(addr)?;
+
+        let request = format!(
+           "POST {} HTTP/1.1\r\n\
+            Host:{}\r\n\
+            Content-Type:application/json\r\n\
+            Content-Length:{}\r\n\
+            Connection:close\r\n\
+            \r\n\
+            {}",
+            path,
+            self.host,
+            len,
+            body,
+            );
+
+        stream.write_all(request.as_bytes())?;
+        let _ = stream.flush();
+        let mut response = String::new();
+        let _ = stream.read_to_string(&mut response);
+
+        if let Some(http_response) = HttpResponse::from_raw(response){
+            http_response.print_Summary();
+        }else{
+            println!("Eror occured while parsing the response");
+        }
+        
+            Ok(())
     }
         
          

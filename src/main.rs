@@ -45,6 +45,7 @@ fn main() {
     let client = HttpClient::new(&host_url);
     let _ = match  args.method.to_lowercase().as_str() {
         "get"=>client.get(args.path.as_str()),
+        "post"=>client.post(args.path.as_str(), args.body.as_str(), args.body.len()),
         _=>{
             eprintln!("Unsupported Http Methode :{}",args.method);
             return;
