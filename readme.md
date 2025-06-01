@@ -17,6 +17,7 @@
 ## Installation
 
 Make sure you have Rust and Cargo installed. Then clone the repo and build the project:
+![nt-client demo](https://github.com/kush-bot/nt-client/blob/master/images/demo.png)
 
 ```bash
 git clone https://github.com/yourusername/nt-client.git
